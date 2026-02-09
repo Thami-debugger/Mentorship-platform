@@ -24,10 +24,13 @@ def login():
 @auth.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
+        email = request.form["email"].strip().lower()
+        role = "admin" if email == "nkosivelaphi.t@gmail.com" else "mentee"
         user = User(
             name=request.form["name"],
-            email=request.form["email"],
-            password=generate_password_hash(request.form["password"])
+            email=email,
+            password=generate_password_hash(request.form["password"]),
+            role=role
         )
         db.session.add(user)
         db.session.commit()

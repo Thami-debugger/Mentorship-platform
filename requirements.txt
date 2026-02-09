@@ -6,3 +6,4 @@ Flask-Migrate
 email-validator
 gunicorn
 psycopg2-binary
+supabase

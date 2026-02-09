@@ -1,13 +1,44 @@
 import os
+import uuid
 from datetime import datetime
 from flask import Blueprint, render_template, redirect, url_for, request, current_app
 from flask_login import login_required
+from supabase import create_client
 from werkzeug.utils import secure_filename
 from .decorators import admin_required
 from .models import Post, Program, Application, User, LiveSession, ContentItem, Quote
 from . import db
 
 admin = Blueprint("admin", __name__, url_prefix="/admin")
+
+def _get_supabase_client():
+    url = os.getenv("SUPABASE_URL")
+    key = os.getenv("SUPABASE_SERVICE_ROLE_KEY") or os.getenv("SUPABASE_SERVICE_KEY")
+    bucket = os.getenv("SUPABASE_BUCKET")
+    if not (url and key and bucket):
+        return None, None
+    return create_client(url, key), bucket
+
+def _upload_to_supabase(file):
+    client, bucket = _get_supabase_client()
+    if not client:
+        return None
+    ext = os.path.splitext(file.filename)[1].lower()
+    path = f"uploads/{uuid.uuid4().hex}{ext}"
+    file_bytes = file.read()
+    file.seek(0)
+    try:
+        client.storage.from_(bucket).upload(
+            path,
+            file_bytes,
+            {"content-type": file.mimetype or "application/octet-stream"}
+        )
+        public_url = client.storage.from_(bucket).get_public_url(path)
+        if isinstance(public_url, dict):
+            return public_url.get("publicURL") or public_url.get("publicUrl")
+        return public_url
+    except Exception:
+        return None
 
 @admin.route("/")
 @login_required
@@ -191,10 +222,12 @@ def create_content():
         file = request.files.get("file")
         file_url = request.form.get("file_url")
         if file and file.filename:
-            filename = secure_filename(file.filename)
-            upload_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
-            file.save(upload_path)
-            file_url = url_for("main.uploaded_file", filename=filename)
+            file_url = _upload_to_supabase(file) or file_url
+            if not file_url:
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+                file.save(upload_path)
+                file_url = url_for("main.uploaded_file", filename=filename)
         item = ContentItem(
             title=request.form["title"],
             description=request.form.get("description"),
@@ -215,10 +248,12 @@ def edit_content(item_id):
         file = request.files.get("file")
         file_url = request.form.get("file_url")
         if file and file.filename:
-            filename = secure_filename(file.filename)
-            upload_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
-            file.save(upload_path)
-            file_url = url_for("main.uploaded_file", filename=filename)
+            file_url = _upload_to_supabase(file) or file_url
+            if not file_url:
+                filename = secure_filename(file.filename)
+                upload_path = os.path.join(current_app.config["UPLOAD_FOLDER"], filename)
+                file.save(upload_path)
+                file_url = url_for("main.uploaded_file", filename=filename)
         if not file_url:
             file_url = item.file_url
         item.title = request.form["title"]

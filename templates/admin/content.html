@@ -15,7 +15,11 @@
         {% if item.content_type == "image" %}
           <img class="content-image" src="{{ item.file_url }}" alt="{{ item.title }}">
         {% endif %}
-        <a class="link" href="{{ item.file_url }}" target="_blank" rel="noopener">Open</a>
+        <div class="actions">
+          <a class="link" href="{{ item.file_url }}" target="_blank" rel="noopener">Open</a>
+          <a class="link" href="{{ url_for('admin.edit_content', item_id=item.id) }}">Edit</a>
+          <a class="link danger" href="{{ url_for('admin.delete_content', item_id=item.id) }}">Delete</a>
+        </div>
       </div>
     {% endfor %}
   </div>

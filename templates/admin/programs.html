@@ -10,6 +10,10 @@
         <h2>{{ program.title }}</h2>
         <p class="muted">{{ program.duration }}</p>
         <p>{{ program.description }}</p>
+        <div class="actions">
+          <a class="link" href="{{ url_for('admin.edit_program', program_id=program.id) }}">Edit</a>
+          <a class="link danger" href="{{ url_for('admin.delete_program', program_id=program.id) }}">Delete</a>
+        </div>
       </div>
     {% endfor %}
   </div>

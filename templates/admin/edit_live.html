@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Edit Live Session | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Edit Live Session</h1>
+<form class="form" method="post">
+  <label>
+    Title
+    <input type="text" name="title" value="{{ session.title }}" required>
+  </label>
+  <label>
+    Meeting or Embed URL
+    <input type="url" name="embed_url" value="{{ session.embed_url }}" required>
+  </label>
+  <label>
+    Scheduled At
+    <input type="datetime-local" name="scheduled_at" value="{{ session.scheduled_at.strftime('%Y-%m-%dT%H:%M') if session.scheduled_at else '' }}">
+  </label>
+  <button class="button" type="submit">Save changes</button>
+</form>
+{% endblock %}

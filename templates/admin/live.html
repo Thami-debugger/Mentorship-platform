@@ -18,6 +18,8 @@
         <div class="actions">
           <a class="link" href="{{ session.embed_url }}" target="_blank" rel="noopener">Open meeting</a>
           <a class="link" href="{{ url_for('admin.start_live', session_id=session.id) }}">Start now</a>
+          <a class="link" href="{{ url_for('admin.edit_live', session_id=session.id) }}">Edit</a>
+          <a class="link danger" href="{{ url_for('admin.delete_live', session_id=session.id) }}">Delete</a>
         </div>
       </div>
     {% endfor %}

@@ -11,6 +11,10 @@
         {% if quote.author %}
           <p class="muted">- {{ quote.author }}</p>
         {% endif %}
+        <div class="actions">
+          <a class="link" href="{{ url_for('admin.edit_quote', quote_id=quote.id) }}">Edit</a>
+          <a class="link danger" href="{{ url_for('admin.delete_quote', quote_id=quote.id) }}">Delete</a>
+        </div>
       </li>
     {% endfor %}
   </ul>

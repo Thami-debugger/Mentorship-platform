@@ -10,6 +10,7 @@
         <span>{{ post.title }}</span>
         <span class="actions">
           <a class="link" href="{{ url_for('main.post_detail', post_id=post.id) }}">View</a>
+          <a class="link" href="{{ url_for('admin.edit_post', post_id=post.id) }}">Edit</a>
           <a class="link danger" href="{{ url_for('admin.delete_post', post_id=post.id) }}">Delete</a>
         </span>
       </li>

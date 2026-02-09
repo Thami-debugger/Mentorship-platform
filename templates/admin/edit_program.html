@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Edit Program | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Edit Program</h1>
+<form class="form" method="post">
+  <label>
+    Title
+    <input type="text" name="title" value="{{ program.title }}" required>
+  </label>
+  <label>
+    Duration
+    <input type="text" name="duration" value="{{ program.duration }}" required>
+  </label>
+  <label>
+    Description
+    <textarea name="description" rows="6" required>{{ program.description }}</textarea>
+  </label>
+  <button class="button" type="submit">Save changes</button>
+</form>
+{% endblock %}

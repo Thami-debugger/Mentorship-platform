@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Edit Content | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Edit Content</h1>
+<form class="form" method="post" enctype="multipart/form-data">
+  <label>
+    Title
+    <input type="text" name="title" value="{{ item.title }}" required>
+  </label>
+  <label>
+    Description
+    <textarea name="description" rows="4">{{ item.description }}</textarea>
+  </label>
+  <label>
+    Content Type
+    <select name="content_type" required>
+      <option value="video" {% if item.content_type == 'video' %}selected{% endif %}>Video</option>
+      <option value="file" {% if item.content_type == 'file' %}selected{% endif %}>File</option>
+      <option value="link" {% if item.content_type == 'link' %}selected{% endif %}>Link</option>
+      <option value="image" {% if item.content_type == 'image' %}selected{% endif %}>Image</option>
+    </select>
+  </label>
+  <label>
+    Cloud File URL
+    <input type="url" name="file_url" value="{{ item.file_url }}">
+  </label>
+  <label>
+    Upload File (optional)
+    <input type="file" name="file">
+  </label>
+  <button class="button" type="submit">Save changes</button>
+</form>
+{% endblock %}

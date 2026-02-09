@@ -26,4 +26,13 @@ def create_app():
     app.register_blueprint(auth)
     app.register_blueprint(admin)
 
+    admin_email = os.getenv("ADMIN_EMAIL")
+    if admin_email:
+        from .models import User
+        with app.app_context():
+            user = User.query.filter_by(email=admin_email).first()
+            if user and user.role != "admin":
+                user.role = "admin"
+                db.session.commit()
+
     return app

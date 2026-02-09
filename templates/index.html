@@ -1,0 +1,65 @@
+{% extends "base.html" %}
+{% block title %}Home | Mentorship Platform{% endblock %}
+{% block content %}
+<section class="hero">
+	<h1>Mentorship that meets you where you are</h1>
+	<p>Join live sessions, access curated content, and grow with a focused learning path.</p>
+	<div class="actions">
+		<a class="button" href="{{ url_for('auth.register') }}">Get Started</a>
+		<a class="button secondary" href="{{ url_for('main.programs') }}">View Programs</a>
+	</div>
+</section>
+
+<section class="grid">
+	<div class="card">
+		<h2>Recent Posts</h2>
+		{% if posts %}
+			<ul class="list">
+				{% for post in posts %}
+					<li>
+						<a href="{{ url_for('main.post_detail', post_id=post.id) }}">{{ post.title }}</a>
+						<span class="muted">{{ post.created_at.strftime('%b %d, %Y') }}</span>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p class="muted">No posts yet.</p>
+		{% endif %}
+	</div>
+	<div class="card">
+		<h2>Programs</h2>
+		{% if programs %}
+			<ul class="list">
+				{% for program in programs %}
+					<li>
+						<strong>{{ program.title }}</strong>
+						<span class="muted">{{ program.duration }}</span>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p class="muted">Programs coming soon.</p>
+		{% endif %}
+	</div>
+</section>
+
+<section class="stack">
+	<div class="card">
+		<h2>Inspiring Quotes</h2>
+		{% if quotes %}
+			<ul class="list">
+				{% for quote in quotes %}
+					<li>
+						<p>"{{ quote.text }}"</p>
+						{% if quote.author %}
+							<span class="muted">- {{ quote.author }}</span>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p class="muted">Quotes will appear here soon.</p>
+		{% endif %}
+	</div>
+</section>
+{% endblock %}

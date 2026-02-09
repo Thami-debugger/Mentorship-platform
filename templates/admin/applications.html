@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Applications | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Applications</h1>
+{% if applications %}
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Goals</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for app in applications %}
+        <tr>
+          <td>{{ app.name }}</td>
+          <td>{{ app.email }}</td>
+          <td>{{ app.goals }}</td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% else %}
+  <p class="muted">No applications yet.</p>
+{% endif %}
+{% endblock %}

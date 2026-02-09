@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Register | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Create your account</h1>
+<form class="form" method="post">
+	<label>
+		Full name
+		<input type="text" name="name" required>
+	</label>
+	<label>
+		Email
+		<input type="email" name="email" required>
+	</label>
+	<label>
+		Password
+		<input type="password" name="password" required>
+	</label>
+	<button class="button" type="submit">Register</button>
+</form>
+{% endblock %}

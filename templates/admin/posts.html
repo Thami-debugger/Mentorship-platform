@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% block title %}Manage Posts | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Posts</h1>
+<a class="button" href="{{ url_for('admin.create_post') }}">Create post</a>
+{% if posts %}
+  <ul class="list">
+    {% for post in posts %}
+      <li class="list-row">
+        <span>{{ post.title }}</span>
+        <span class="actions">
+          <a class="link" href="{{ url_for('main.post_detail', post_id=post.id) }}">View</a>
+          <a class="link danger" href="{{ url_for('admin.delete_post', post_id=post.id) }}">Delete</a>
+        </span>
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="muted">No posts created yet.</p>
+{% endif %}
+{% endblock %}

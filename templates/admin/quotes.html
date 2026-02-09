@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Manage Quotes | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Quotes</h1>
+<a class="button" href="{{ url_for('admin.create_quote') }}">Add quote</a>
+{% if quotes %}
+  <ul class="list">
+    {% for quote in quotes %}
+      <li class="card">
+        <p>"{{ quote.text }}"</p>
+        {% if quote.author %}
+          <p class="muted">- {{ quote.author }}</p>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p class="muted">No quotes yet.</p>
+{% endif %}
+{% endblock %}

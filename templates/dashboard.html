@@ -1,0 +1,56 @@
+{% extends "base.html" %}
+{% block title %}Dashboard | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Your Dashboard</h1>
+
+<section class="grid">
+	<div class="card">
+		<h2>Latest Content</h2>
+		{% if content_items %}
+			<ul class="list">
+				{% for item in content_items %}
+					<li>
+						<strong>{{ item.title }}</strong>
+						<span class="muted">{{ item.content_type }}</span>
+					</li>
+				{% endfor %}
+			</ul>
+			<a class="link" href="{{ url_for('main.content') }}">View all content</a>
+		{% else %}
+			<p class="muted">No content yet.</p>
+		{% endif %}
+	</div>
+	<div class="card">
+		<h2>Upcoming Live Sessions</h2>
+		{% if live_sessions %}
+			<ul class="list">
+				{% for session in live_sessions %}
+					<li>
+						<strong>{{ session.title }}</strong>
+						{% if session.scheduled_at %}
+							<span class="muted">{{ session.scheduled_at.strftime('%b %d, %Y %H:%M') }}</span>
+						{% endif %}
+					</li>
+				{% endfor %}
+			</ul>
+			<a class="link" href="{{ url_for('main.live') }}">Join sessions</a>
+		{% else %}
+			<p class="muted">No live sessions scheduled.</p>
+		{% endif %}
+	</div>
+	<div class="card">
+		<h2>Recent Posts</h2>
+		{% if posts %}
+			<ul class="list">
+				{% for post in posts %}
+					<li>
+						<a href="{{ url_for('main.post_detail', post_id=post.id) }}">{{ post.title }}</a>
+					</li>
+				{% endfor %}
+			</ul>
+		{% else %}
+			<p class="muted">No posts yet.</p>
+		{% endif %}
+	</div>
+</section>
+{% endblock %}

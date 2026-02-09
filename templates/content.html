@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% block title %}Content Library | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Content Library</h1>
+{% if content_items %}
+  <div class="stack">
+    {% for item in content_items %}
+      <div class="card">
+        <h2>{{ item.title }}</h2>
+        <p class="muted">{{ item.content_type }}</p>
+        {% if item.description %}
+          <p>{{ item.description }}</p>
+        {% endif %}
+        {% if item.content_type == "image" %}
+          <img class="content-image" src="{{ item.file_url }}" alt="{{ item.title }}">
+        {% endif %}
+        <a class="button" href="{{ item.file_url }}" target="_blank" rel="noopener">Open content</a>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="muted">No content available yet.</p>
+{% endif %}
+{% endblock %}

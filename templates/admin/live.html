@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Manage Live Sessions | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Live Sessions</h1>
+<a class="button" href="{{ url_for('admin.create_live') }}">Create live session</a>
+{% if sessions %}
+  <div class="stack">
+    {% for session in sessions %}
+      <div class="card">
+        <h2>{{ session.title }}</h2>
+        {% if session.scheduled_at %}
+          <p class="muted">{{ session.scheduled_at.strftime('%b %d, %Y %H:%M') }}</p>
+          {% if session.scheduled_at <= now %}
+            <span class="badge">Live now</span>
+          {% endif %}
+        {% endif %}
+        <p class="muted">Embed URL: {{ session.embed_url }}</p>
+        <div class="actions">
+          <a class="link" href="{{ session.embed_url }}" target="_blank" rel="noopener">Open meeting</a>
+          <a class="link" href="{{ url_for('admin.start_live', session_id=session.id) }}">Start now</a>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+{% else %}
+  <p class="muted">No live sessions yet.</p>
+{% endif %}
+{% endblock %}

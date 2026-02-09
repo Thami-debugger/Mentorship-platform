@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Add Content | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Add Content</h1>
+<form class="form" method="post" enctype="multipart/form-data">
+  <label>
+    Title
+    <input type="text" name="title" required>
+  </label>
+  <label>
+    Description
+    <textarea name="description" rows="4"></textarea>
+  </label>
+  <label>
+    Content Type
+    <select name="content_type" required>
+      <option value="video">Video</option>
+      <option value="file">File</option>
+      <option value="link">Link</option>
+      <option value="image">Image</option>
+    </select>
+  </label>
+  <label>
+    Cloud File URL
+    <input type="url" name="file_url" placeholder="https://...">
+  </label>
+  <label>
+    Upload File
+    <input type="file" name="file">
+  </label>
+  <button class="button" type="submit">Save content</button>
+</form>
+{% endblock %}

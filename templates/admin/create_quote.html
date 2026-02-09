@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Add Quote | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Add Quote</h1>
+<form class="form" method="post">
+  <label>
+    Quote
+    <textarea name="text" rows="4" required></textarea>
+  </label>
+  <label>
+    Author
+    <input type="text" name="author" placeholder="Marvis Bridget">
+  </label>
+  <button class="button" type="submit">Save quote</button>
+</form>
+{% endblock %}

@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Admin Dashboard | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Admin Dashboard</h1>
+<div class="grid">
+  <div class="card">
+    <h2>Content</h2>
+    <p class="stat">{{ content_items }}</p>
+    <a class="link" href="{{ url_for('admin.content') }}">Manage content</a>
+  </div>
+  <div class="card">
+    <h2>Quotes</h2>
+    <p class="stat">{{ quotes }}</p>
+    <a class="link" href="{{ url_for('admin.quotes') }}">Manage quotes</a>
+  </div>
+  <div class="card">
+    <h2>Live Sessions</h2>
+    <p class="stat">{{ live_sessions }}</p>
+    <a class="link" href="{{ url_for('admin.live') }}">Manage live sessions</a>
+  </div>
+  <div class="card">
+    <h2>Posts</h2>
+    <p class="stat">{{ posts }}</p>
+    <a class="link" href="{{ url_for('admin.posts') }}">Manage posts</a>
+  </div>
+  <div class="card">
+    <h2>Programs</h2>
+    <p class="stat">{{ programs }}</p>
+    <a class="link" href="{{ url_for('admin.programs') }}">Manage programs</a>
+  </div>
+  <div class="card">
+    <h2>Applications</h2>
+    <p class="stat">{{ applications }}</p>
+    <a class="link" href="{{ url_for('admin.applications') }}">View applications</a>
+  </div>
+  <div class="card">
+    <h2>Users</h2>
+    <p class="stat">{{ users }}</p>
+  </div>
+</div>
+{% endblock %}

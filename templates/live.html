@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+{% block title %}Live Sessions | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Live Sessions</h1>
+{% if sessions %}
+    <div class="stack">
+        {% for session in sessions %}
+            <div class="card">
+                <h2>{{ session.title }}</h2>
+                {% if session.scheduled_at %}
+                    <p class="muted">{{ session.scheduled_at.strftime('%b %d, %Y %H:%M') }}</p>
+                    {% if session.scheduled_at <= now %}
+                        <span class="badge">Live now</span>
+                    {% endif %}
+                {% endif %}
+                <div class="video">
+                    <iframe
+                        width="100%"
+                        height="400"
+                        src="{{ session.embed_url }}"
+                        frameborder="0"
+                        allowfullscreen></iframe>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+{% else %}
+    <p class="muted">No live sessions scheduled yet.</p>
+{% endif %}
+{% endblock %}

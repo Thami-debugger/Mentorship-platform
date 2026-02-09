@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% block title %}{{ post.title }} | Mentorship Platform{% endblock %}
+{% block content %}
+<article class="card">
+	<h1>{{ post.title }}</h1>
+	<p class="muted">{{ post.created_at.strftime('%b %d, %Y') }}</p>
+	<div class="content-body">{{ post.content }}</div>
+</article>
+{% endblock %}

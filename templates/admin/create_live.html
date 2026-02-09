@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Create Live Session | Mentorship Platform{% endblock %}
+{% block content %}
+<h1>Create Live Session</h1>
+<form class="form" method="post">
+  <label>
+    Title
+    <input type="text" name="title" required>
+  </label>
+  <label>
+    Meeting or Embed URL
+    <input type="url" name="embed_url" placeholder="https://www.youtube.com/embed/VIDEO_ID or https://zoom.us/j/" required>
+  </label>
+  <label>
+    Scheduled At
+    <input type="datetime-local" name="scheduled_at">
+  </label>
+  <button class="button" type="submit">Create session</button>
+</form>
+{% endblock %}

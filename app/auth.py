@@ -25,7 +25,7 @@ def login():
 def register():
     if request.method == "POST":
         email = request.form["email"].strip().lower()
-        role = "admin" if email == "nkosivelaphi.t@gmail.com" else "mentee"
+        role = "admin" if email == "mentorshipplatform07@gmail.com" else "mentee"
         user = User(
             name=request.form["name"],
             email=email,
